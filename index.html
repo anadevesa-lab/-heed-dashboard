@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+(function(){
+  var auth = sessionStorage.getItem('hc_auth');
+  if(auth !== 'ok'){
+    var pw = prompt('Heed Capital — Enter password:');
+    if(pw !== 'Mac1983@'){ document.write('<style>body{background:#080a0f;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;color:#f87171;font-size:14px}</style><p>Access denied. Refresh to try again.</p>'); throw new Error(''); }
+    sessionStorage.setItem('hc_auth','ok');
+  }
+})();
+</script>
 <title>Heed Capital — Marketing Dashboard</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
