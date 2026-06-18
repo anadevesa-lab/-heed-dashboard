@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heed Capital — Marketing Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#080a0f;font-family:'Inter',sans-serif;color:#e2e8f0}
+.wrap{max-width:1200px;margin:0 auto;padding:20px}
+.dash{display:grid;grid-template-columns:200px 1fr;min-height:92vh;border-radius:12px;overflow:hidden;background:#0f1117;border:0.5px solid rgba(255,255,255,0.07)}
+.sidebar{background:#090b10;border-right:0.5px solid rgba(255,255,255,0.07);padding:16px 0;display:flex;flex-direction:column;gap:2px}
+.sidebar-logo{padding:0 16px 14px;border-bottom:0.5px solid rgba(255,255,255,0.07);margin-bottom:8px}
+.logo-mark{display:flex;align-items:center;gap:8px}
+.logo-icon{width:30px;height:30px;border-radius:7px;background:#E11D48;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.logo-text{font-size:14px;font-weight:600;color:#f1f5f9}
+.logo-sub{font-size:10px;color:#64748b;margin-top:2px;margin-left:38px}
+.nav-section{font-size:9px;font-weight:600;color:#475569;padding:12px 16px 4px;letter-spacing:.08em;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:12px;color:#94a3b8;cursor:pointer;transition:all 150ms;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,0.04);color:#e2e8f0}
+.nav-item.active{background:rgba(225,29,72,0.1);color:#fda4af;border-right:2px solid #E11D48}
+.nav-item i{font-size:15px;width:16px}
+.account-row{display:flex;align-items:center;gap:7px;padding:6px 10px;margin:0 4px;border-radius:6px;cursor:pointer;transition:background 150ms}
+.account-row:hover{background:rgba(255,255,255,0.05)}
+.acct-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.av-ig{background:#E11D48;color:#fff}
+.av-ga{background:#1d4ed8;color:#fff}
+.acct-name{font-size:11px;font-weight:500;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acct-handle{font-size:10px;color:#64748b}
+.dot-live{width:5px;height:5px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.main{display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:14px 20px;border-bottom:0.5px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.page-title{font-size:15px;font-weight:600;color:#f1f5f9}
+.page-sub{font-size:11px;color:#64748b;margin-top:2px}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tb-pill{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;border:0.5px solid rgba(255,255,255,0.1);font-size:11px;color:#94a3b8;background:rgba(255,255,255,0.03)}
+.content{padding:18px 20px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+.profile-card{background:#161b27;border:0.5px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.profile-avatar{width:46px;height:46px;border-radius:50%;background:#E11D48;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.profile-name{font-size:15px;font-weight:600;color:#f1f5f9}
+.profile-meta{display:flex;align-items:center;gap:14px;margin-top:5px;flex-wrap:wrap}
+.profile-meta span{font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px}
+.profile-tags{display:flex;gap:6px;margin-top:7px}
+.ptag{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500;display:flex;align-items:center;gap:3px}
+.ptag-ig{background:rgba(225,29,72,0.15);color:#fda4af}
+.ptag-ga{background:rgba(59,130,246,0.15);color:#93c5fd}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:#161b27;border:0.5px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px}
+.kpi-lbl{font-size:10px;color:#64748b;display:flex;align-items:center;gap:5px;margin-bottom:8px}
+.kpi-lbl .dot{width:5px;height:5px;border-radius:50%}
+.kpi-val{font-size:22px;font-weight:600;color:#f1f5f9;line-height:1}
+.kpi-delta{font-size:10px;margin-top:5px;display:flex;align-items:center;gap:2px}
+.up{color:#4ade80}.dn{color:#f87171}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:800px){.charts-row,.bottom-row{grid-template-columns:1fr}}
+.card{background:#161b27;border:0.5px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px}
+.card-title{font-size:13px;font-weight:500;color:#e2e8f0}
+.card-sub{font-size:10px;color:#64748b;margin-top:2px;margin-bottom:10px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:#64748b;margin-bottom:8px}
+.legend span{display:flex;align-items:center;gap:4px}
+.ld{width:8px;height:8px;border-radius:2px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;padding:6px 8px;font-size:10px;font-weight:600;color:#64748b;border-bottom:0.5px solid rgba(255,255,255,0.07);text-transform:uppercase;letter-spacing:.04em}
+.tbl td{padding:8px 8px;color:#cbd5e1;border-bottom:0.5px solid rgba(255,255,255,0.05)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,0.03)}
+.badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:500}
+.b-on{background:rgba(34,197,94,0.15);color:#4ade80}
+.b-pause{background:rgba(234,179,8,0.12);color:#fbbf24}
+.posts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.post{background:#1e2433;border-radius:7px;padding:10px;cursor:pointer;border:0.5px solid rgba(255,255,255,0.05);transition:border-color 150ms}
+.post:hover{border-color:rgba(225,29,72,0.4)}
+.post-thumb{width:100%;aspect-ratio:1;border-radius:5px;background:#2a2033;display:flex;align-items:center;justify-content:center;margin-bottom:7px}
+.post-thumb i{font-size:22px;color:#9d174d}
+.ps{font-size:10px;color:#64748b;display:flex;align-items:center;gap:3px}
+.sidebar-footer{padding:10px 8px 6px;margin-top:auto;border-top:0.5px solid rgba(255,255,255,0.07)}
+.footer-lbl{font-size:9px;color:#475569;margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;padding:0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="dash">
+
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <div class="logo-icon">HC</div>
+        <div class="logo-text">Heed Capital</div>
+      </div>
+      <div class="logo-sub">Marketing Hub</div>
+    </div>
+    <span class="nav-section">Overview</span>
+    <a class="nav-item active" href="#"><i class="ti ti-layout-dashboard"></i>Dashboard</a>
+    <a class="nav-item" href="#"><i class="ti ti-report-analytics"></i>Analytics</a>
+    <span class="nav-section">Channels</span>
+    <a class="nav-item" href="#"><i class="ti ti-brand-instagram"></i>Instagram</a>
+    <a class="nav-item" href="#"><i class="ti ti-brand-google"></i>Google Ads</a>
+    <a class="nav-item" href="#"><i class="ti ti-speakerphone"></i>Campaigns</a>
+    <span class="nav-section">Content</span>
+    <a class="nav-item" href="#"><i class="ti ti-photo"></i>Posts</a>
+    <a class="nav-item" href="#"><i class="ti ti-video"></i>Reels</a>
+    <a class="nav-item" href="#"><i class="ti ti-calendar"></i>Scheduler</a>
+    <a class="nav-item" href="#"><i class="ti ti-settings"></i>Settings</a>
+    <div class="sidebar-footer">
+      <div class="footer-lbl">Connected</div>
+      <div class="account-row">
+        <div class="acct-avatar av-ig"><i class="ti ti-brand-instagram" style="font-size:12px"></i></div>
+        <div style="flex:1;min-width:0">
+          <div class="acct-name">@heedcap</div>
+          <div class="acct-handle">Instagram</div>
+        </div>
+        <div class="dot-live"></div>
+      </div>
+      <div class="account-row" style="margin-top:4px">
+        <div class="acct-avatar av-ga"><i class="ti ti-brand-google" style="font-size:12px"></i></div>
+        <div style="flex:1;min-width:0">
+          <div class="acct-name">Heed Capital</div>
+          <div class="acct-handle">Google Ads</div>
+        </div>
+        <div class="dot-live"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="page-title">Performance Overview</div>
+        <div class="page-sub">June 2026 &middot; @heedcap + Heed Capital Ads</div>
+      </div>
+      <div class="topbar-right">
+        <div class="tb-pill"><span style="width:6px;height:6px;border-radius:50%;background:#E11D48"></span>Instagram</div>
+        <div class="tb-pill"><span style="width:6px;height:6px;border-radius:50%;background:#3b82f6"></span>Google Ads</div>
+        <div class="tb-pill"><i class="ti ti-calendar" style="font-size:13px"></i>Last 30 days</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="profile-card">
+        <div class="profile-avatar">HC</div>
+        <div style="flex:1;min-width:0">
+          <div class="profile-name">Heed Capital</div>
+          <div class="profile-meta">
+            <span><i class="ti ti-brand-instagram" style="font-size:12px"></i>@heedcap</span>
+            <span><i class="ti ti-phone" style="font-size:12px"></i>535-950-1764</span>
+            <span><i class="ti ti-map-pin" style="font-size:12px"></i>United States</span>
+          </div>
+          <div class="profile-tags">
+            <span class="ptag ptag-ig"><i class="ti ti-brand-instagram" style="font-size:9px"></i>Instagram</span>
+            <span class="ptag ptag-ga"><i class="ti ti-brand-google" style="font-size:9px"></i>Google Ads</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+          <span style="font-size:11px;color:#4ade80;display:flex;align-items:center;gap:4px"><i class="ti ti-circle-check" style="font-size:13px"></i>2 accounts live</span>
+          <span style="font-size:10px;color:#64748b">Last sync: 2 min ago</span>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-lbl"><span class="dot" style="background:#E11D48"></span>Followers</div>
+          <div class="kpi-val">48.3K</div>
+          <div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i>+1,240 this month</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl"><span class="dot" style="background:#E11D48"></span>Reach</div>
+          <div class="kpi-val">312K</div>
+          <div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i>+18% vs last month</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl"><span class="dot" style="background:#3b82f6"></span>Ad Spend</div>
+          <div class="kpi-val">$4,820</div>
+          <div class="kpi-delta dn"><i class="ti ti-trending-down" style="font-size:11px"></i>$380 over budget</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl"><span class="dot" style="background:#3b82f6"></span>ROAS</div>
+          <div class="kpi-val">3.8×</div>
+          <div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i>+0.4 vs last month</div>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="card">
+          <div class="card-title">Engagement & Impressions</div>
+          <div class="card-sub">@heedcap &middot; last 7 days</div>
+          <div class="legend">
+            <span><span class="ld" style="background:#E11D48"></span>Impressions (K)</span>
+            <span><span class="ld" style="background:#fb7185"></span>Engagement %</span>
+          </div>
+          <div style="position:relative;height:160px">
+            <canvas id="igC" role="img" aria-label="Instagram impressions and engagement rate for @heedcap">Impressions peaked mid-week; engagement averaged 4.2%.</canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Clicks vs Conversions</div>
+          <div class="card-sub">Heed Capital &middot; Google Ads &middot; last 7 days</div>
+          <div class="legend">
+            <span><span class="ld" style="background:#3b82f6"></span>Clicks</span>
+            <span><span class="ld" style="background:#93c5fd"></span>Conversions</span>
+          </div>
+          <div style="position:relative;height:160px">
+            <canvas id="gaC" role="img" aria-label="Google Ads clicks and conversions for Heed Capital">Clicks averaged 420/day with 6.3% conversion rate.</canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="card">
+          <div class="card-title">Active Campaigns</div>
+          <div class="card-sub">Heed Capital &middot; Google Ads</div>
+          <table class="tbl">
+            <thead><tr><th>Campaign</th><th>Status</th><th>Spend</th><th>ROAS</th></tr></thead>
+            <tbody>
+              <tr><td>Brand Search</td><td><span class="badge b-on">Active</span></td><td>$1,240</td><td>5.1×</td></tr>
+              <tr><td>Retargeting</td><td><span class="badge b-on">Active</span></td><td>$890</td><td>4.7×</td></tr>
+              <tr><td>Prospecting</td><td><span class="badge b-pause">Paused</span></td><td>$620</td><td>2.1×</td></tr>
+              <tr><td>Summer Push</td><td><span class="badge b-on">Active</span></td><td>$2,070</td><td>3.4×</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">Top Posts</div>
+          <div class="card-sub">@heedcap &middot; this month</div>
+          <div class="posts-grid">
+            <div class="post"><div class="post-thumb"><i class="ti ti-photo"></i></div><div class="ps"><i class="ti ti-heart"></i>4.2K</div><div class="ps" style="margin-top:3px"><i class="ti ti-eye"></i>38K</div></div>
+            <div class="post"><div class="post-thumb"><i class="ti ti-video"></i></div><div class="ps"><i class="ti ti-heart"></i>7.8K</div><div class="ps" style="margin-top:3px"><i class="ti ti-eye"></i>91K</div></div>
+            <div class="post"><div class="post-thumb"><i class="ti ti-photo"></i></div><div class="ps"><i class="ti ti-heart"></i>3.1K</div><div class="ps" style="margin-top:3px"><i class="ti ti-eye"></i>27K</div></div>
+            <div class="post"><div class="post-thumb"><i class="ti ti-video"></i></div><div class="ps"><i class="ti ti-heart"></i>9.4K</div><div class="ps" style="margin-top:3px"><i class="ti ti-eye"></i>112K</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const gc='rgba(255,255,255,0.06)',tc='#64748b';
+new Chart(document.getElementById('igC'),{type:'line',data:{labels:days,datasets:[
+  {label:'Impressions (K)',data:[42,58,71,65,80,94,76],borderColor:'#E11D48',backgroundColor:'rgba(225,29,72,0.08)',tension:.4,fill:true,yAxisID:'y',pointRadius:3,borderWidth:2},
+  {label:'Engagement %',data:[3.8,4.1,4.7,3.9,5.2,6.1,4.8],borderColor:'#fb7185',borderDash:[4,3],backgroundColor:'transparent',tension:.4,fill:false,yAxisID:'y2',pointRadius:3,borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,backgroundColor:'#1e2433',titleColor:'#e2e8f0',bodyColor:'#94a3b8',borderColor:'rgba(255,255,255,0.1)',borderWidth:1}},scales:{y:{position:'left',ticks:{font:{size:10},color:tc,callback:v=>v+'K'},grid:{color:gc}},y2:{position:'right',ticks:{font:{size:10},color:tc,callback:v=>v+'%'},grid:{display:false}},x:{ticks:{font:{size:10},color:tc},grid:{display:false}}}}});
+new Chart(document.getElementById('gaC'),{type:'bar',data:{labels:days,datasets:[
+  {label:'Clicks',data:[390,450,410,480,520,380,430],backgroundColor:'#3b82f6',borderRadius:4,yAxisID:'y'},
+  {label:'Conversions',data:[24,31,28,34,38,22,29],backgroundColor:'rgba(147,197,253,0.6)',borderRadius:4,yAxisID:'y2'}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,backgroundColor:'#1e2433',titleColor:'#e2e8f0',bodyColor:'#94a3b8',borderColor:'rgba(255,255,255,0.1)',borderWidth:1}},scales:{y:{position:'left',ticks:{font:{size:10},color:tc},grid:{color:gc}},y2:{position:'right',ticks:{font:{size:10},color:tc},grid:{display:false}},x:{ticks:{font:{size:10},color:tc},grid:{display:false}}}}});
+</script>
+</body>
+</html>
